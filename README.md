@@ -1,11 +1,11 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/246tech/unms?label=x64%20build)]
+![Docker Build Status](https://img.shields.io/docker/cloud/build/246tech/unms?label=x64%20build)
 [![GitHub release](https://img.shields.io/github/release/nico640/docker-unms/all)](https://github.com/nico640/docker-unms/releases)
 
 # UNMS
 
 This is an all-in-one Docker image for running the [Ubiquiti Network Management System](https://unms.com/). This image contains all the components required to run [UNMS](https://unms.com/) in a single container and uses the [s6-overlay](https://github.com/just-containers/s6-overlay) for process management.
 
-This image was created with UNRAID in mind where having the default ports just port forwarded by docker leaves UNMS partially crippled. 
+This image was created with [UNRAID](https://unraid.net/) in mind where having the default ports just port forwarded by docker leaves UNMS partially crippled. 
 This image will run on most platforms that support Docker including [Docker for Mac](https://www.docker.com/docker-mac), [Docker for Windows](https://www.docker.com/docker-windows), Synology DSM and Raspberry Pi boards.
 
 ## Usage
@@ -27,7 +27,7 @@ The parameters are split into two halves, separated by a colon, the left hand si
 * `-p 6080:6080` - Expose the HTTP web server port on the docker host
 * `-p 6443:6443` - Expose the HTTPS and WSS web server port on the docker host
 * `-p 2055:2055/udp` - Expose the Netflow port on the docker host
-* `-e TZ` - for [timezone information](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) e.g. `-e TZ=Europe/London`
+* `-e TZ` - for [timezone information](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) e.g. `-e TZ=America/Barbados`
 
 *Optional Settings:*
 
