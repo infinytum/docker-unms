@@ -236,14 +236,14 @@ ENV PATH=/home/app/unms/node_modules/.bin:$PATH:/usr/lib/postgresql/9.6/bin \
   PGDATA=/config/postgres \
   POSTGRES_DB=unms \
   QUIET_MODE=0 \
-  WS_PORT=443 \
-  PUBLIC_HTTPS_PORT=443 \
-  PUBLIC_WS_PORT=443 \
+  WS_PORT=6443 \
+  PUBLIC_HTTPS_PORT=6443 \
+  PUBLIC_WS_PORT=6443 \
   UNMS_NETFLOW_PORT=2055 \
   SECURE_LINK_SECRET=enigma \
   SSL_CERT=""
 
-EXPOSE 80 443 2055/udp
+EXPOSE 6080 6443 2055/udp
 
 VOLUME ["/config"]
 
