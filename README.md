@@ -1,4 +1,4 @@
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/nico640/docker-unms?label=x64%20build)](https://hub.docker.com/r/nico640/docker-unms/) 
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/nico640/docker-unms?label=x64%20build)](https://hub.docker.com/repository/docker/246tech/unms) 
 [![GitLab](https://img.shields.io/gitlab/pipeline/Nico640/docker-unms?label=arm%20build)](https://gitlab.com/Nico640/docker-unms/-/jobs) 
 [![GitHub release](https://img.shields.io/github/release/nico640/docker-unms/all)](https://github.com/nico640/docker-unms/releases)
 
@@ -19,15 +19,6 @@ docker run \
   -v </path/to/config>:/config \
   nico640/docker-unms:latest
 ```
-
-## Raspberry Pi / ARMv7
-
-This image will also allow you to run [UNMS](https://unms.com/) on a Raspberry Pi or other Docker-enabled ARMv7/8 devices by using the `armhf` tag.
-
-```
-docker run -d --name unms -p 80:80 -p 443:443 -p 2055:2055/udp -v </path/to/config>:/config nico640/docker-unms:armhf
-```
-
 ## Parameters
 
 The parameters are split into two halves, separated by a colon, the left hand side representing the host and the right the container side.
@@ -47,7 +38,7 @@ The parameters are split into two halves, separated by a colon, the left hand si
 
 ## Limitations
 
-The Docker image, nico640/docker-unms, is not maintained by or affiliated with Ubiquiti Networks. You should not expect any support from Ubiquiti when running UNMS using this image.
+The Docker image, 246tech/unms, is not maintained by or affiliated with Ubiquiti Networks. You should not expect any support from Ubiquiti when running UNMS using this image.
 
 * In-app upgrades will not work. You can upgrade UNMS by downloading the latest version of this image.
 * Device firmware upgrades initiated from UNMS may not work ([#7](https://github.com/oznu/docker-unms/issues/7)).
