@@ -1,5 +1,5 @@
 ![Docker Build Status](https://img.shields.io/docker/cloud/build/246tech/unms?label=x64%20build)
-[![GitHub release](https://img.shields.io/github/release/nico640/docker-unms/all)](https://github.com/nico640/docker-unms/releases)
+[![GitHub release](https://img.shields.io/github/release/tpsretard/docker-unms/all)](https://github.com/tpsretard/docker-unms/releases)
 
 # UNMS
 
