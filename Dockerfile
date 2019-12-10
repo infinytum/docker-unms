@@ -1,8 +1,8 @@
 # Multi-stage build - See https://docs.docker.com/engine/userguide/eng-image/multistage-build
-FROM ubnt/unms:1.0.8 as unms
-FROM ubnt/unms-nginx:1.0.8 as unms-nginx
-FROM ubnt/unms-netflow:1.0.8 as unms-netflow
-FROM ubnt/unms-crm:3.0.8 as unms-crm
+FROM ubnt/unms:1.0.9 as unms
+FROM ubnt/unms-nginx:1.0.9 as unms-nginx
+FROM ubnt/unms-netflow:1.0.9 as unms-netflow
+FROM ubnt/unms-crm:3.0.9 as unms-crm
 FROM oznu/s6-node:10.15.3-debian-amd64
 
 ENV DEBIAN_FRONTEND=noninteractive 
@@ -103,7 +103,7 @@ ENV NGINX_UID=1000 \
     NGINX_VERSION=nginx-1.14.2 \
     LUAJIT_VERSION=2.1.0-beta3 \
     LUA_NGINX_VERSION=0.10.13 \
-    PHP_VERSION=php-7.3.10
+    PHP_VERSION=php-7.3.12
 
 RUN set -x \
     && mkdir -p /tmp/src && cd /tmp/src \
@@ -111,13 +111,13 @@ RUN set -x \
     && wget -q https://github.com/openresty/lua-nginx-module/archive/v${LUA_NGINX_VERSION}.tar.gz -O lua-nginx-module.tar.gz \
     && wget -q https://github.com/simpl/ngx_devel_kit/archive/v0.3.0.tar.gz -O ndk.tar.gz \
     && wget -q http://luajit.org/download/LuaJIT-${LUAJIT_VERSION}.tar.gz -O luajit.tar.gz \
-	&& wget -q https://www.php.net/get/${PHP_VERSION}.tar.xz/from/this/mirror -O php.tar.xz \
+    && wget -q https://www.php.net/get/${PHP_VERSION}.tar.xz/from/this/mirror -O php.tar.xz \
     && tar -zxvf lua-nginx-module.tar.gz \
     && tar -zxvf ndk.tar.gz \
     && tar -zxvf luajit.tar.gz \
     && tar -zxvf nginx.tar.gz \
-	&& tar -xvf php.tar.xz \
-	&& cp php.tar.xz /usr/src \
+    && tar -xvf php.tar.xz \
+    && cp php.tar.xz /usr/src \
     && cd /tmp/src/LuaJIT-${LUAJIT_VERSION} && make amalg PREFIX='/usr' && make install PREFIX='/usr' \
     && export LUAJIT_LIB=/usr/lib/libluajit-5.1.so && export LUAJIT_INC=/usr/include/luajit-2.1 \
     && cd /tmp/src/${NGINX_VERSION} && ./configure \
@@ -177,7 +177,7 @@ RUN set -x \
     && echo "unms ALL=(ALL) NOPASSWD:SETENV: /copy-user-certs.sh reload" >> /etc/sudoers \
     && echo "unms ALL=(ALL) NOPASSWD:SETENV: /refresh-certificate.sh *" >> /etc/sudoers \
     && echo "unms ALL=(ALL) NOPASSWD:SETENV: /refresh-configuration.sh *" >> /etc/sudoers
-	
+    
 COPY --from=unms-crm /etc/nginx/available-servers /etc/nginx/ucrm
 
 COPY --from=unms-nginx /entrypoint.sh /refresh-certificate.sh /refresh-configuration.sh /openssl.cnf /ip-whitelist.sh /
@@ -203,7 +203,7 @@ RUN sed -i "s#/bin/sh#/bin/bash#g" /entrypoint.sh \
 # php & composer
 ENV PHP_INI_DIR=/usr/local/etc/php \
     SYMFONY_ENV=prod
-	
+    
 COPY --from=unms-crm /usr/local/etc/php/php.ini /usr/local/etc/php/
 COPY --from=unms-crm /usr/local/etc/php-fpm.conf /usr/local/etc/
 COPY --from=unms-crm /usr/local/etc/php-fpm.d /usr/local/etc/php-fpm.d
@@ -223,7 +223,7 @@ RUN echo '' | pecl install apcu ds \
       exif intl dom xml opcache imap soap sockets sysvmsg sysvshm sysvsem \
     && curl -sS https://getcomposer.org/installer | php -- \
         --install-dir=/usr/bin --filename=composer \
-	&& cd /usr/src/ucrm \
+    && cd /usr/src/ucrm \
     && composer global require hirak/prestissimo \
     && composer install \
         --classmap-authoritative \
