@@ -55,7 +55,7 @@ services:
       - 6443:6443
       - 2055:2055/udp
     environment:
-      - TZ=Australia/Sydney
+      - TZ=America/Barbados
     volumes:
       - ./volumes/unms:/config
 ```
